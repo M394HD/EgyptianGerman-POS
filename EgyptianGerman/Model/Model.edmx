@@ -1,0 +1,626 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EgyptianGermanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="customerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="11" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="onDebt" Type="float" />
+          <Property Name="hasMoney" Type="float" />
+          <Property Name="Type" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="customer_product">
+          <Key>
+            <PropertyRef Name="customerID" />
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="customerID" Type="int" Nullable="false" />
+          <Property Name="productID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Expenses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Image" Type="image" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="maxDiscount" Type="float" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="categoryID" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="refundDate" Type="date" />
+          <Property Name="refundQntity" Type="int" />
+        </EntityType>
+        <EntityType Name="purchases">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Receipt">
+          <Key>
+            <PropertyRef Name="receiptID" />
+          </Key>
+          <Property Name="receiptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="creatationDate" Type="date" Nullable="false" />
+          <Property Name="Total" Type="float" Nullable="false" />
+          <Property Name="SercialNo" Type="int" Nullable="false" />
+          <Property Name="paymentMethod" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="customerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Receipt_product">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="Discount" />
+          </Key>
+          <Property Name="ReceiptID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="bit" Nullable="false" />
+          <Property Name="Quntity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="8" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EgyptianGerman.dbo.ViewReceipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewReceipt">
+          <Key>
+            <PropertyRef Name="SercialNo" />
+            <PropertyRef Name="creatationDate" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Total" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="productID" />
+            <PropertyRef Name="paymentMethod" />
+            <PropertyRef Name="Quntity" />
+            <PropertyRef Name="Discount" />
+          </Key>
+          <Property Name="SercialNo" Type="int" Nullable="false" />
+          <Property Name="creatationDate" Type="date" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Total" Type="float" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="paymentMethod" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Quntity" Type="int" Nullable="false" />
+          <Property Name="Cname" Type="nvarchar(max)" />
+          <Property Name="Discount" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_customer_product_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="customer_product" Type="Self.customer_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="customer_product">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_customer_product_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="customer_product" Type="Self.customer_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="customer_product">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receipt_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Receipt" Type="Self.Receipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="Receipt">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receipt_product_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Receipt_product" Type="Self.Receipt_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="Receipt_product">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receipt_product_Receipt">
+          <End Role="Receipt" Type="Self.Receipt" Multiplicity="1" />
+          <End Role="Receipt_product" Type="Self.Receipt_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receipt">
+              <PropertyRef Name="receiptID" />
+            </Principal>
+            <Dependent Role="Receipt_product">
+              <PropertyRef Name="ReceiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EgyptianGermanModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer_product" EntityType="Self.customer_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="purchases" EntityType="Self.purchases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receipt" EntityType="Self.Receipt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Receipt_product" EntityType="Self.Receipt_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ViewReceipt" EntityType="Self.ViewReceipt" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewReceipt].[SercialNo] AS [SercialNo], 
+    [ViewReceipt].[creatationDate] AS [creatationDate], 
+    [ViewReceipt].[Name] AS [Name], 
+    [ViewReceipt].[Total] AS [Total], 
+    [ViewReceipt].[Price] AS [Price], 
+    [ViewReceipt].[productID] AS [productID], 
+    [ViewReceipt].[paymentMethod] AS [paymentMethod], 
+    [ViewReceipt].[Quntity] AS [Quntity], 
+    [ViewReceipt].[Cname] AS [Cname], 
+    [ViewReceipt].[Discount] AS [Discount]
+    FROM [dbo].[ViewReceipt] AS [ViewReceipt]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_customer_product_Customer" Association="Self.FK_customer_product_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="customer_product" EntitySet="customer_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_customer_product_Product" Association="Self.FK_customer_product_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="customer_product" EntitySet="customer_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receipt_Customer" Association="Self.FK_Receipt_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Receipt" EntitySet="Receipt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receipt_product_Product" Association="Self.FK_Receipt_product_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Receipt_product" EntitySet="Receipt_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receipt_product_Receipt" Association="Self.FK_Receipt_product_Receipt">
+            <End Role="Receipt" EntitySet="Receipt" />
+            <End Role="Receipt_product" EntitySet="Receipt_product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EgyptianGermanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EgyptianGermanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="EgyptianGermanModel.Category" />
+          <EntitySet Name="Customers" EntityType="EgyptianGermanModel.Customer" />
+          <EntitySet Name="Products" EntityType="EgyptianGermanModel.Product" />
+          <EntitySet Name="Receipts" EntityType="EgyptianGermanModel.Receipt" />
+          <EntitySet Name="sysdiagrams" EntityType="EgyptianGermanModel.sysdiagram" />
+          <EntitySet Name="Users" EntityType="EgyptianGermanModel.User" />
+          <EntitySet Name="ViewReceipts" EntityType="EgyptianGermanModel.ViewReceipt" />
+          <AssociationSet Name="FK_Product_Category" Association="EgyptianGermanModel.FK_Product_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receipt_Customer" Association="EgyptianGermanModel.FK_Receipt_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Receipt" EntitySet="Receipts" />
+          </AssociationSet>
+          <AssociationSet Name="customer_product" Association="EgyptianGermanModel.customer_product">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <EntitySet Name="Expenses" EntityType="EgyptianGermanModel.Expens" />
+          <EntitySet Name="purchases" EntityType="EgyptianGermanModel.purchase" />
+          <EntitySet Name="Receipt_product" EntityType="EgyptianGermanModel.Receipt_product" />
+          <AssociationSet Name="FK_Receipt_product_Product" Association="EgyptianGermanModel.FK_Receipt_product_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Receipt_product" EntitySet="Receipt_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receipt_product_Receipt" Association="EgyptianGermanModel.FK_Receipt_product_Receipt">
+            <End Role="Receipt" EntitySet="Receipts" />
+            <End Role="Receipt_product" EntitySet="Receipt_product" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="EgyptianGermanModel.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="customerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="onDebt" Type="Double" />
+          <Property Name="hasMoney" Type="Double" />
+          <NavigationProperty Name="Receipts" Relationship="EgyptianGermanModel.FK_Receipt_Customer" FromRole="Customer" ToRole="Receipt" />
+          <NavigationProperty Name="Products" Relationship="EgyptianGermanModel.customer_product" FromRole="Customer" ToRole="Product" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="maxDiscount" Type="Double" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="categoryID" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="EgyptianGermanModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Customers" Relationship="EgyptianGermanModel.customer_product" FromRole="Product" ToRole="Customer" />
+          <Property Name="refundDate" Type="DateTime" Precision="0" />
+          <Property Name="refundQntity" Type="Int32" />
+          <NavigationProperty Name="Receipt_product" Relationship="EgyptianGermanModel.FK_Receipt_product_Product" FromRole="Product" ToRole="Receipt_product" />
+        </EntityType>
+        <EntityType Name="Receipt">
+          <Key>
+            <PropertyRef Name="receiptID" />
+          </Key>
+          <Property Name="receiptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="creatationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Total" Type="Double" Nullable="false" />
+          <Property Name="SercialNo" Type="Int32" Nullable="false" />
+          <Property Name="paymentMethod" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="customerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="EgyptianGermanModel.FK_Receipt_Customer" FromRole="Receipt" ToRole="Customer" />
+          <NavigationProperty Name="Receipt_product" Relationship="EgyptianGermanModel.FK_Receipt_product_Receipt" FromRole="Receipt" ToRole="Receipt_product" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ViewReceipt">
+          <Key>
+            <PropertyRef Name="SercialNo" />
+            <PropertyRef Name="creatationDate" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Total" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="productID" />
+            <PropertyRef Name="paymentMethod" />
+            <PropertyRef Name="Quntity" />
+            <PropertyRef Name="Discount" />
+          </Key>
+          <Property Name="SercialNo" Type="Int32" Nullable="false" />
+          <Property Name="creatationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="Double" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="paymentMethod" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Quntity" Type="Int32" Nullable="false" />
+          <Property Name="Cname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Discount" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Product_Category">
+          <End Type="EgyptianGermanModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="EgyptianGermanModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receipt_Customer">
+          <End Type="EgyptianGermanModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="EgyptianGermanModel.Receipt" Role="Receipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="Receipt">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="customer_product">
+          <End Type="EgyptianGermanModel.Customer" Role="Customer" Multiplicity="*" />
+          <End Type="EgyptianGermanModel.Product" Role="Product" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Expens">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="purchase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Receipt_product">
+          <Key>
+            <PropertyRef Name="ReceiptID" />
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="Discount" />
+          </Key>
+          <Property Name="ReceiptID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Boolean" Nullable="false" />
+          <Property Name="Quntity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="EgyptianGermanModel.FK_Receipt_product_Product" FromRole="Receipt_product" ToRole="Product" />
+          <NavigationProperty Name="Receipt" Relationship="EgyptianGermanModel.FK_Receipt_product_Receipt" FromRole="Receipt_product" ToRole="Receipt" />
+        </EntityType>
+        <Association Name="FK_Receipt_product_Product">
+          <End Type="EgyptianGermanModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="EgyptianGermanModel.Receipt_product" Role="Receipt_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="Receipt_product">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Receipt_product_Receipt">
+          <End Type="EgyptianGermanModel.Receipt" Role="Receipt" Multiplicity="1" />
+          <End Type="EgyptianGermanModel.Receipt_product" Role="Receipt_product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Receipt">
+              <PropertyRef Name="receiptID" />
+            </Principal>
+            <Dependent Role="Receipt_product">
+              <PropertyRef Name="ReceiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EgyptianGermanModelStoreContainer" CdmEntityContainer="EgyptianGermanEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="hasMoney" ColumnName="hasMoney" />
+                <ScalarProperty Name="onDebt" ColumnName="onDebt" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="refundQntity" ColumnName="refundQntity" />
+                <ScalarProperty Name="refundDate" ColumnName="refundDate" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="maxDiscount" ColumnName="maxDiscount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receipts">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.Receipt">
+              <MappingFragment StoreEntitySet="Receipt">
+                <ScalarProperty Name="customerID" ColumnName="customerID" />
+                <ScalarProperty Name="paymentMethod" ColumnName="paymentMethod" />
+                <ScalarProperty Name="SercialNo" ColumnName="SercialNo" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="creatationDate" ColumnName="creatationDate" />
+                <ScalarProperty Name="receiptID" ColumnName="receiptID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewReceipts">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.ViewReceipt">
+              <MappingFragment StoreEntitySet="ViewReceipt">
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Cname" ColumnName="Cname" />
+                <ScalarProperty Name="Quntity" ColumnName="Quntity" />
+                <ScalarProperty Name="paymentMethod" ColumnName="paymentMethod" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="creatationDate" ColumnName="creatationDate" />
+                <ScalarProperty Name="SercialNo" ColumnName="SercialNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="customer_product" TypeName="EgyptianGermanModel.customer_product" StoreEntitySet="customer_product">
+            <EndProperty Name="Product">
+              <ScalarProperty Name="productID" ColumnName="productID" />
+            </EndProperty>
+            <EndProperty Name="Customer">
+              <ScalarProperty Name="customerID" ColumnName="customerID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.Expens">
+              <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchases">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.purchase">
+              <MappingFragment StoreEntitySet="purchases">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receipt_product">
+            <EntityTypeMapping TypeName="EgyptianGermanModel.Receipt_product">
+              <MappingFragment StoreEntitySet="Receipt_product">
+                <ScalarProperty Name="Quntity" ColumnName="Quntity" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ReceiptID" ColumnName="ReceiptID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
